@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import { Camera, RefreshCw, Share2, Sliders, Palette, Move } from 'lucide-react';
+import { PuzzleType } from '../data/memories';
 
 interface PuzzleComponentProps {
-  type: 'draw' | 'color' | 'arrange' | 'focus' | 'rhythm' | 'final';
+  type: PuzzleType;
   question?: string;
   pattern?: string | number[];
   colors?: string[];
@@ -57,35 +57,8 @@ export function PuzzleComponent({
     return initialPieces;
   });
 
-  const triggerConfetti = () => {
-    const end = Date.now() + 1000;
-    const colors = ['#6366f1', '#a855f7', '#ec4899'];
-
-    (function frame() {
-      confetti({
-        particleCount: 3,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: colors
-      });
-      confetti({
-        particleCount: 3,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: colors
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    }());
-  };
-
   const handleSuccess = () => {
     if (playSound) playSound();
-    triggerConfetti();
     setTimeout(onComplete, 1000);
   };
 

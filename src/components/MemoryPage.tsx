@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
 import { PuzzleComponent } from './PuzzleComponent';
 import { memories } from '../data/memories';
+import dayjs from 'dayjs';
 
-interface MemoryPageProps {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  image?: string;
-  puzzle: {
-    type: 'draw' | "color" | "arrange" | "rhythm" | "focus" | 'swipe' | 'tap' | 'drag' | 'final';
-    question?: string;
-    answer?: string;
-  };
+type MemoryPageProps = (typeof memories)[number] & {
   isLast: boolean;
   onComplete: () => void;
-  playSound: () => void;
   totalPages: number;
   currentPage: number;
+  setSelectedImage: (image: string) => void;
 }
 
 export function MemoryPage({
@@ -31,14 +22,10 @@ export function MemoryPage({
   onComplete,
   totalPages,
   currentPage,
-  playSound
+  date,
+  setSelectedImage
 }: MemoryPageProps) {
   const [showAnswer, setShowAnswer] = useState(false);
-
-  useEffect(() => {
-    playSound()
-  }, [])
-
 
   return (
     <motion.div
@@ -56,6 +43,9 @@ export function MemoryPage({
         <span className="font-medium text-indigo-600">
           Memory {currentPage + 1} of {totalPages}
         </span>
+        <span className="font-medium text-indigo-600 ml-auto">
+          {dayjs(date).format('DD MMM YY')}
+        </span>
       </div>
 
       {image && (
@@ -66,7 +56,8 @@ export function MemoryPage({
           <img
             src={image}
             alt={title}
-            className="w-full h-48 object-cover"
+            className="w-full h-48 object-contain rounded-sm bg-pink-300"
+            onClick={() => setSelectedImage(image)}
           />
         </motion.div>
       )}
