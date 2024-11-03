@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { Camera, RefreshCw, Share2, Sliders, Palette, Move } from 'lucide-react';
 import { PuzzleType } from '../data/memories';
+import Draw from './puzzles/Draw/Draw';
 
 interface PuzzleComponentProps {
   type: PuzzleType;
@@ -134,6 +135,7 @@ export function PuzzleComponent({
   const renderPuzzle = () => {
     switch (type) {
       case 'draw':
+        return <Draw question={question} />;
         return (
           <div className="bg-white rounded-xl p-4 shadow-inner">
             <p className="text-indigo-600 font-medium mb-4">{question}</p>

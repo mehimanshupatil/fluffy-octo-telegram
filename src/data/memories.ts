@@ -12,7 +12,7 @@ export const memories = [
     "date": "2024-09-24",
     "puzzle": {
       type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
+      question: "Draw a heart to unlock next memory",
       pattern: "heart"
     }
   },
@@ -24,9 +24,9 @@ export const memories = [
     "sound": "/sounds/heartbeat.mp3",
     "date": "2024-09-28",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      "type": "color",
+      "question": "Fill in the background to reveal the memory",
+      "pieces": null
     }
   },
 
@@ -38,9 +38,9 @@ export const memories = [
     "sound": "/sounds/notification-chime.mp3",
     "date": "2024-09-30",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      "type": "arrange",
+      "question": "Arrange the pieces of our first message conversation",
+      "pieces": 4
     }
   },
   {
@@ -51,9 +51,9 @@ export const memories = [
     "sound": "/sounds/phone-ring.mp3",
     "date": "2024-10-07",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      "type": "rhythm",
+      "question": "Tap in sync with our conversation to unlock the memory",
+      "rhythmPattern": [1, 2, 1, 3] // Example rhythm
     }
   },
   {
@@ -64,9 +64,9 @@ export const memories = [
     "sound": "/sounds/cafe-ambient.mp3",
     "date": "2024-10-09",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      type: "focus" as const,
+      question: "Focus on the correct spot in the image to reveal the memory",
+      targetArea: { x: 100, y: 150, width: 50, height: 50 }
     }
   },
   {
@@ -77,9 +77,9 @@ export const memories = [
     "sound": "/sounds/heartbeat.mp3",
     "date": "2024-10-16",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      type: "swipe" as const,
+      question: "Swipe to reveal the memory",
+      swipeDirection: "right" // Example direction
     }
   },
   {
@@ -103,9 +103,8 @@ export const memories = [
     "sound": "/sounds/video-call.mp3",
     "date": "2024-10-23",
     "puzzle": {
-      type: "draw" as const,
-      question: "Draw a heart to unlock this memory",
-      pattern: "heart"
+      "type": "tap" as const,
+      question: "Tap on the screen to reveal the memory"
     }
   },
   {
