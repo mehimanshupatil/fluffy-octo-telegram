@@ -115,7 +115,7 @@ function App() {
   const unlockNextPage = () => {
     if (currentPage < memories.length - 1) {
       setUnlockedPages(prev => new Set([...prev, currentPage + 1]));
-      setCurrentPage(prev => prev + 1);
+      // setCurrentPage(prev => prev + 1);
       triggerConfetti();
     }
   };

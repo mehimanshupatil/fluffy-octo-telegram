@@ -19,7 +19,7 @@ export const HEART_POINTS: Point[] = [
     { x: 150, y: 100 },
 ];
 
-function Draw({ question }: { question: string }) {
+function Draw({ question, onComplete }: { question: string, onComplete: () => void }) {
     const [isDrawing, setIsDrawing] = useState(false);
     const [points, setPoints] = useState<Point[]>([]);
     const [completed, setCompleted] = useState(false);
@@ -71,6 +71,7 @@ function Draw({ question }: { question: string }) {
 
         if (correct) {
             setCompleted(true);
+            onComplete()
         } else {
             setPoints([]);
         }
@@ -104,9 +105,9 @@ function Draw({ question }: { question: string }) {
             <div className="flex justify-center gap-4 mt-6">
                 <button
                     onClick={resetPuzzle}
-                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="flex items-center gap-2 p-2  bg-indigo-600 text-xs font-medium text-white rounded-lg hover:bg-indigo-700 transition-colors"
                 >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-3 h-3" />
                     Reset
                 </button>
 

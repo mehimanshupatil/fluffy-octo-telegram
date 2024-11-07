@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { Point } from './Draw';
+import { Point } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 
 interface CanvasProps {
     points: Point[];
@@ -17,6 +17,19 @@ export function Canvas({
     onEnd,
 }: CanvasProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const updateCanvasSize = () => {
+        const container = containerRef.current;
+        const canvas = canvasRef.current;
+        if (!container || !canvas) return;
+
+        const containerWidth = container.clientWidth;
+        const newScale = containerWidth / 300;
+
+        canvas.style.width = `${300 * newScale}px`;
+        canvas.style.height = `${300 * newScale}px`;
+    };
 
     const getCoordinates = (e: MouseEvent | Touch): { x: number; y: number } => {
         const canvas = canvasRef.current;
@@ -24,8 +37,8 @@ export function Canvas({
 
         const rect = canvas.getBoundingClientRect();
         return {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
+            x: (e.clientX - rect.left) * (300 / rect.width),
+            y: (e.clientY - rect.top) * (300 / rect.height),
         };
     };
 
@@ -107,14 +120,22 @@ export function Canvas({
 
     useEffect(() => {
         drawCanvas();
-    }, [points]);
+    }, [points,]);
+
+    useEffect(() => {
+        updateCanvasSize();
+        window.addEventListener('resize', updateCanvasSize);
+        return () => window.removeEventListener('resize', updateCanvasSize);
+    }, []);
 
     return (
-        <canvas
-            ref={canvasRef}
-            width={300}
-            height={300}
-            className="border-2 border-gray-200 rounded-lg mx-auto bg-white touch-none  "
-        />
+        <div ref={containerRef} className="w-full max-w-[300px] mx-auto">
+            <canvas
+                ref={canvasRef}
+                width={300}
+                height={300}
+                className="border-2 border-gray-200 rounded-lg bg-white touch-none"
+            />
+        </div>
     );
 }

@@ -25,11 +25,8 @@ export const memories = [
     "date": "2024-09-28",
     "puzzle": {
       "type": "color",
-      "question": "Fill in the background to reveal the memory",
-      "pieces": null
     }
   },
-
   {
     "title": "The Insta Dilemma & Our First Steps Together",
     "description": "After you accepted my Insta request, I spent the entire day wondering whether to message you. It wasn’t until 11:40 pm that I gathered the courage to send the first message and then quickly close app and went to bed. Firstly i was not aware about you knowing the proposal so i was scared of how you will feel, will this overwhelming, so it was a professional reachout but once you confimed that you knew about it, We started exchanging messages, and with each reply, my excitement grew. It was my first time opening up like this, but you made it easy. I found myself eagerly waiting for your next message.",
