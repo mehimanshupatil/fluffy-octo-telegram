@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 
 interface CanvasProps {
     points: Point[];
-    heartPoints: Point[];
+    shapePoints: Point[];
     onStart: (x: number, y: number) => void;
     onMove: (x: number, y: number) => void;
     onEnd: () => void;
@@ -11,7 +11,7 @@ interface CanvasProps {
 
 export function Canvas({
     points,
-    heartPoints,
+    shapePoints,
     onStart,
     onMove,
     onEnd,
@@ -66,7 +66,7 @@ export function Canvas({
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Draw reference points
-        heartPoints.forEach((point, index) => {
+        shapePoints.forEach((point, index) => {
             ctx.beginPath();
             ctx.arc(point.x, point.y, 8, 0, Math.PI * 2);
             ctx.fillStyle = '#4F46E5';

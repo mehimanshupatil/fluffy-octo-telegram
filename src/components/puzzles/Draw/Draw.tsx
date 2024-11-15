@@ -5,7 +5,21 @@ import { Canvas } from './Canvas';
 
 export type Point = { x: number; y: number };
 
-export const HEART_POINTS: Point[] = [
+const HEART_POINTS2: Point[] = [
+    { x: 150, y: 100 },
+    { x: 120, y: 70 },
+    { x: 80, y: 70 },
+    { x: 50, y: 100 },
+    { x: 50, y: 140 },
+    { x: 150, y: 220 },
+    { x: 250, y: 140 },
+    { x: 250, y: 100 },
+    { x: 220, y: 70 },
+    { x: 180, y: 70 },
+    { x: 150, y: 100 },
+];
+
+const HEART_POINTS: Point[] = [
     { x: 150, y: 100 },
     { x: 120, y: 70 },
     { x: 80, y: 70 },
@@ -94,7 +108,7 @@ function Draw({ question, onComplete }: { question: string, onComplete: () => vo
             <div className="relative">
                 <Canvas
                     points={points}
-                    heartPoints={HEART_POINTS}
+                    shapePoints={HEART_POINTS}
                     onStart={handleStart}
                     onMove={handleMove}
                     onEnd={handleEnd}
