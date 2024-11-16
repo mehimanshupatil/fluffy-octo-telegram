@@ -170,7 +170,6 @@ function App() {
           >
             <MemoryPage
               {...memories[currentPage]}
-              isLast={currentPage === memories.length - 1}
               onComplete={unlockNextPage}
               totalPages={memories.length}
               currentPage={currentPage}

@@ -56,6 +56,11 @@ export function Canvas({
         onMove(x, y);
     };
 
+    const checkLabelOverlap = (x1: number, y1: number, x2: number, y2: number, threshold: number = 20): boolean => {
+        const distance = Math.hypot(x2 - x1, y2 - y1);
+        return distance < threshold;
+    };
+
     const drawCanvas = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -65,6 +70,9 @@ export function Canvas({
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Store label positions
+        const labelPositions: { x: number; y: number }[] = [];
+
         // Draw reference points
         shapePoints.forEach((point, index) => {
             ctx.beginPath();
@@ -72,10 +80,26 @@ export function Canvas({
             ctx.fillStyle = '#4F46E5';
             ctx.fill();
 
+            // Calculate initial label position
+            let labelX = point.x + 10;
+            let labelY = point.y + 10;
+
+            // Adjust label position if it overlaps with previous labels
+            labelPositions.forEach((labelPos) => {
+                if (checkLabelOverlap(labelX, labelY, labelPos.x, labelPos.y)) {
+                    // Move the label further away if there is overlap
+                    labelX += 10;
+                    labelY += 10;
+                }
+            });
+
+            // Store the final label position for future overlap checks
+            labelPositions.push({ x: labelX, y: labelY });
+
             // Draw number labels
             ctx.fillStyle = '#1F2937';
             ctx.font = '14px Arial';
-            ctx.fillText((index + 1).toString(), point.x + 10, point.y + 10);
+            ctx.fillText((index + 1).toString(), labelX, labelY);
         });
 
         // Draw user's line
@@ -89,8 +113,6 @@ export function Canvas({
             ctx.lineWidth = 4;
             ctx.stroke();
         }
-
-
     };
 
     useEffect(() => {
@@ -120,7 +142,7 @@ export function Canvas({
 
     useEffect(() => {
         drawCanvas();
-    }, [points,]);
+    }, [points, shapePoints]);
 
     useEffect(() => {
         updateCanvasSize();

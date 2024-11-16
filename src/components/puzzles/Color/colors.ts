@@ -49,18 +49,28 @@ export const COLOR_PAIRS: ColorPuzzle[] = [
         message: '🌅 Every sunset reminds me of you 🌅'
     },
     {
-        type: 'memory',
-        name: 'Our Love Story',
-        description: 'Follow the colors and the tap in same order',
-        colors: getRandomColors(5),
-        message: '💑 Every moment with you is magical 💑'
-    },
-    {
         type: 'mix',
         name: 'Sweet Dreams',
         description: 'Mix the perfect lavender of peaceful nights',
         colors: ['purple', 'white'],
         target: { r: 230, g: 190, b: 255 },
         message: '🌙 Dreaming of you always 🌙'
+    }
+];
+
+export const COLOR_MEMORY: ColorPuzzle[] = [
+    {
+        type: 'memory',
+        name: '143',
+        description: 'Follow the colors and the tap in same order',
+        colors: getRandomColors(5),
+        message: '💑 Every moment with you is magical 💑'
+    },
+    {
+        type: 'memory',
+        name: '1432',
+        description: 'Follow the colors and the tap in same order',
+        colors: getRandomColors(5),
+        message: '💑 Every moment with you is unique 💑'
     }
 ];

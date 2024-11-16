@@ -1,85 +1,38 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PuzzleType } from '../data/memories';
+import { memories } from '../data/memories';
 import Draw from './puzzles/Draw/Draw';
 import { Color } from './puzzles/Color/Color';
 import { ImagePuzzle } from './puzzles/Arrange/Arrange';
 
 interface PuzzleComponentProps {
-  type: PuzzleType;
-  question?: string;
-  pattern?: string | number[];
+  puzzle: (typeof memories)[number]['puzzle']
   onComplete: () => void;
   isLast: boolean;
   playSound?: () => void;
 }
 
 export function PuzzleComponent({
-  type,
-  question,
-  pattern,
+  puzzle,
   onComplete,
   isLast,
   playSound
 }: PuzzleComponentProps) {
 
-  const [rhythmPattern, setRhythmPattern] = useState<number[]>([]);
-
-
   const handleSuccess = () => {
     if (playSound) playSound();
-    setTimeout(onComplete, 1000);
+    window.open("https://wa.me/918237732718?text=I%20LOVE%20YOU%20TOO", "_blank")
+
   };
 
 
   const renderPuzzle = () => {
-    switch (type) {
+    switch (puzzle.type) {
       case 'draw':
-        return <Draw question={question!} onComplete={onComplete} />;
-
+        return <Draw question={puzzle.question} pattern={puzzle.pattern} onComplete={onComplete} />;
       case 'color':
-        return (
-          <Color onComplete={onComplete} />
-        );
-
+        return <Color variant={puzzle.variant} onComplete={onComplete} />
       case 'arrange':
-        return (
-          <ImagePuzzle onComplete={onComplete} />
-        );
-
-      case 'rhythm':
-        return (
-          <div className="bg-white rounded-xl p-4 shadow-inner">
-            <p className="text-indigo-600 font-medium mb-4">{question}</p>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              className="w-full py-4 bg-indigo-100 rounded-lg"
-              onClick={() => {
-                const newPattern = [...rhythmPattern, 1];
-                setRhythmPattern(newPattern);
-                if (pattern && newPattern.length === pattern.length) {
-                  if (newPattern.join('') === pattern.join('')) {
-                    handleSuccess();
-                  }
-                  setTimeout(() => setRhythmPattern([]), 1000);
-                }
-              }}
-            >
-              Tap Here
-            </motion.button>
-            <div className="flex justify-center gap-2 mt-4">
-              {rhythmPattern.map((beat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="w-3 h-3 bg-indigo-600 rounded-full"
-                />
-              ))}
-            </div>
-          </div>
-        );
-
+        return <ImagePuzzle onComplete={onComplete} imgUrl={puzzle.url} />
       case 'final':
         return (
           <div className="space-y-3">
@@ -92,7 +45,7 @@ export function PuzzleComponent({
               Yes! 💍
             </motion.button>
             <motion.button
-              whileHover={{ x: [0, 10, -10, 0] }}
+              whileHover={{ y: [0, 200, -200, 0] }}
               className="w-full px-6 py-4 bg-gray-100 text-gray-400 rounded-xl font-semibold"
             >
               Maybe later...

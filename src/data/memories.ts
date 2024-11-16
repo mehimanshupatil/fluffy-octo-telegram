@@ -12,19 +12,21 @@ export const memories = [
     "date": "2024-09-24",
     "puzzle": {
       type: "draw" as const,
-      question: "Draw a heart to unlock next memory",
-      pattern: "heart"
+      question: "Draw a Star to unlock next memory",
+      pattern: "star"
     }
   },
   {
     "title": "Should I Reach Out?",
     "description": "Before things moved forward i wanted to talk to you but lacked the courage. I even went to ChatGPT for help on how to break the ice. The thought of reaching out consumed me. took me 2 days to send you a follow request on Instagram.",
     "icon": MessageSquare,
-    "image": "https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80",
+    "image": "/images/ss-sleep.jpeg",
     "sound": "/sounds/heartbeat.mp3",
     "date": "2024-09-28",
     "puzzle": {
-      "type": "color",
+      type: "draw" as const,
+      question: "Draw an Infinity to unlock next memory",
+      pattern: "infinity"
     }
   },
   {
@@ -35,78 +37,80 @@ export const memories = [
     "sound": "/sounds/notification-chime.mp3",
     "date": "2024-09-30",
     "puzzle": {
-      "type": "arrange",
-      "question": "Arrange the pieces",
-    }
-  },
-  {
-    "title": "The First Call",
-    "description": "Our first phone call happened at sharp 9 pm it lasted for around 1hr 40min 38secs. I was nervous at first, but your handled it so well. I have a recording of it and i know you dont like it so i will not share it. but in near future we will laugh on it.",
-    "icon": PhoneCall,
-    "image": "https://images.unsplash.com/photo-1573166364524-c93a4079bb34?auto=format&fit=crop&q=80",
-    "sound": "/sounds/phone-ring.mp3",
-    "date": "2024-10-07",
-    "puzzle": {
       type: "draw" as const,
       question: "Draw a heart to unlock next memory",
       pattern: "heart"
     }
   },
   {
+    "title": "The First Call",
+    "description": "Our first phone call happened at sharp 9 pm it lasted for around 1hr 40min 38secs. I was nervous at first, but your handled it so well. I have a recording of it and i know you dont like it so i will not share it. but in near future we will laugh on it.",
+    "icon": PhoneCall,
+    "image": "/images/call-ss.jpeg",
+    "sound": "/sounds/phone-ring.mp3",
+    "date": "2024-10-07",
+    "puzzle": {
+      "type": "color",
+      "variant": 'mix'
+    }
+  },
+  {
     "title": "The First Date",
     "description": "Our first date at The Nines. You seemed a bit tense, but I was excited. Though we didn’t capture it in pictures, the memory of that moment is etched in my heart forever.",
     "icon": Coffee,
-    "image": "https://images.unsplash.com/photo-1511953276997-1fc5f4adf8f4?auto=format&fit=crop&q=80",
+    "image": "/images/banner-forever-together.jpeg",
     "sound": "/sounds/cafe-ambient.mp3",
     "date": "2024-10-09",
     "puzzle": {
       "type": "color",
+      "variant": 'memory'
     }
   },
   {
     "title": "It's Official: My Heart Said Yes",
     "description": "I said yes to you! It wasn’t a grand romantic gesture, but I wanted to be honest and not wait any longer. I knew you were the one and did not want to lose you.",
     "icon": CheckCircle,
-    "image": "https://images.unsplash.com/photo-1509057199576-632a47484ece?auto=format&fit=crop&q=80",
+    "image": "/public/images/i-said.jpeg",
     "sound": "/sounds/heartbeat.mp3",
     "date": "2024-10-16",
     "puzzle": {
       "type": "arrange",
-      "question": "Arrange the pieces",
+      "url": "/images/banner-forever-together.jpeg"
     }
   },
   {
     "title": "Our First Selfie Together",
     "description": "You were at interview, we planned to go to BKC but the processed took longer than expected. You made me wait for 3-4 hours, but it was worth it. So we went to the nearest place and we captured a moment that I’ll never forget—though.",
     "icon": Camera,
-    "image": "https://images.unsplash.com/photo-1502980426475-d40c59b50303?auto=format&fit=crop&q=80",
+    "image": "/images/together.jpeg",
     "sound": "/sounds/camera-shutter.mp3",
     "date": "2024-10-22",
     "puzzle": {
-      "type": "color",
+      "type": "arrange",
+      "url": "/images/together.jpeg"
     }
   },
   {
     "title": "The Yes I Was Waiting For",
     "description": "You said yes! I knew you would and also it will be on birthday, but the timming of it was unexpected, a midnight video call, and a soft tone 'yes from me' that made my day unforgettable.",
     "icon": Video,
-    "image": "https://images.unsplash.com/photo-1600164029709-7fd979d85169?auto=format&fit=crop&q=80",
+    "image": "/images/tin.jpeg",
     "sound": "/sounds/video-call.mp3",
     "date": "2024-10-23",
     "puzzle": {
       "type": "arrange",
-      "question": "Arrange the pieces",
+      "url": "/images/tin.jpeg"
     }
   },
   {
     "title": "To My One and Only",
-    "description": "Vivi,\n we’ve shared so much over these two months. You’ve shown me love, care, and understanding in ways I never imagined. I didn’t expect to fall in love, but I did—with you. I want to face life’s ups and downs with you, always by my side. In person it may take time to say to you, but I LOVE YOU.\n yous, Pumpkin.",
+    "description": "Vivi,\n we’ve shared so much over these few months. You’ve shown me love, care, and understanding in ways I never imagined. I didn’t expected to fall in love with anyone, but I did—with you. I want to face life’s ups and downs with you, always by my side.\n\n I LOVE YOU.\n yours,\n Pumpkin.",
     "icon": Heart,
-    "image": "https://images.unsplash.com/photo-1559242817-7a35d0f89b73?auto=format&fit=crop&q=80",
+    "image": "/images/forever.jpeg",
     "sound": "/sounds/soft-violin.mp3",
     "date": undefined,
     "puzzle": {
       type: "final" as const
     }
   }
-]
+] as const

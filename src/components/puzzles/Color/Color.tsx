@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { COLOR_PAIRS, type RGB } from './colors';
+import { COLOR_MEMORY, COLOR_PAIRS, type RGB } from './colors';
 import { SuccessOverlay } from './Success';
 import { Heart, Sparkles } from 'lucide-react';
 
-export function Color({ onComplete }: { onComplete: () => void }) {
+function shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+}
+
+export function Color({ onComplete, variant }: { onComplete: () => void; variant: 'mix' | 'memory' }) {
     const [level, setLevel] = useState(0);
     const [mix, setMix] = useState(0.5);
     const [completed, setCompleted] = useState(false);
@@ -13,7 +21,8 @@ export function Color({ onComplete }: { onComplete: () => void }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
 
-    const currentPuzzle = COLOR_PAIRS[level];
+    const currentPuzzle = variant === 'mix' ? COLOR_PAIRS[level] : COLOR_MEMORY[level];
+
 
     const getMixedColor = (ratio: number): RGB => {
         const [color1, color2] = currentPuzzle.colors || [];
@@ -73,7 +82,7 @@ export function Color({ onComplete }: { onComplete: () => void }) {
     };
 
     const startMemoryGame = () => {
-        const sequence = [...currentPuzzle.colors!];
+        const sequence = shuffleArray([...currentPuzzle.colors!]);
         setMemorySequence(sequence);
         setUserSequence([]);
         setIsPlaying(true);
@@ -113,7 +122,8 @@ export function Color({ onComplete }: { onComplete: () => void }) {
     };
 
     const nextLevel = () => {
-        if (level === COLOR_PAIRS.length - 1) {
+
+        if (variant === 'mix' && level === COLOR_PAIRS.length - 1 || variant === 'memory' && level === COLOR_MEMORY.length - 1) {
             setCompleted(true);
             onComplete();
         } else {
@@ -196,7 +206,7 @@ export function Color({ onComplete }: { onComplete: () => void }) {
                                 onClick={startMemoryGame}
                                 className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 active:bg-indigo-700 transform hover:scale-105 transition-all touch-none"
                             >
-                                Start Love Story
+                                Start the Game
                             </button>
                         )}
                         {isPlaying && (
@@ -235,7 +245,7 @@ export function Color({ onComplete }: { onComplete: () => void }) {
                     </div>
                 )}
                 {completed && (
-                    <SuccessOverlay />
+                    <SuccessOverlay variant={variant} />
                 )}
             </div>
         </div>

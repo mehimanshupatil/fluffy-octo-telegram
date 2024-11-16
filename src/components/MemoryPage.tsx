@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PuzzleComponent } from './PuzzleComponent';
 import { memories } from '../data/memories';
 import dayjs from 'dayjs';
 
 type MemoryPageProps = (typeof memories)[number] & {
-  isLast: boolean;
   onComplete: () => void;
   totalPages: number;
   currentPage: number;
@@ -18,14 +16,12 @@ export function MemoryPage({
   icon: Icon,
   image,
   puzzle,
-  isLast,
   onComplete,
   totalPages,
   currentPage,
   date,
   setSelectedImage
 }: MemoryPageProps) {
-  const [showAnswer, setShowAnswer] = useState(false);
 
   return (
     <motion.div
@@ -70,20 +66,16 @@ export function MemoryPage({
       </motion.h2>
 
       <motion.p
-        className="text-gray-600 mb-6"
+        className="text-gray-600 mb-6 whitespace-pre-line  font-mono"
         layoutId={`desc-${currentPage}`}
       >
         {description}
       </motion.p>
 
       <PuzzleComponent
-        type={puzzle.type}
-        question={puzzle.question}
-        answer={puzzle.answer}
+        puzzle={puzzle}
         onComplete={onComplete}
-        isLast={isLast}
-        showAnswer={showAnswer}
-        setShowAnswer={setShowAnswer}
+        isLast={currentPage === memories.length - 1}
       />
     </motion.div>
   );

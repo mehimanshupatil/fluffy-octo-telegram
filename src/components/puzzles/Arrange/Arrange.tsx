@@ -4,7 +4,7 @@ import { Image as ImageIcon } from 'lucide-react';
 import type { Piece, GameState } from './types';
 import { SuccessOverlay } from './Success';
 
-export function ImagePuzzle({ onComplete }: { onComplete: () => void }) {
+export function ImagePuzzle({ onComplete, imgUrl }: { onComplete: () => void; imgUrl: string }) {
     const [gameState, setGameState] = useState<GameState>({
         pieces: [],
         selectedPiece: null,
@@ -39,8 +39,7 @@ export function ImagePuzzle({ onComplete }: { onComplete: () => void }) {
     const initializePuzzle = useCallback(async () => {
         setGameState(prev => ({ ...prev, loading: true }));
 
-        const imageId = Math.floor(Math.random() * 1000);
-        const newImageUrl = `https://picsum.photos/seed/${imageId}/300/300`;
+        const newImageUrl = imgUrl;
 
         try {
             await new Promise((resolve, reject) => {
@@ -168,11 +167,7 @@ export function ImagePuzzle({ onComplete }: { onComplete: () => void }) {
                 {gameState.isComplete ? (
                     <SuccessOverlay />
                 ) : (
-                    <button
-                        onClick={() => initializePuzzle()}
-                        className="flex items-center gap-2 p-2  bg-indigo-600 text-xs font-medium text-white rounded-lg hover:bg-indigo-700 transition-colors" >
-                        Reset Puzzle
-                    </button>
+                    null
                 )}
             </div>
         </div>
