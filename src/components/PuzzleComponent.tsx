@@ -46,6 +46,7 @@ export function PuzzleComponent({
             </motion.button>
             <motion.button
               whileHover={{ y: [0, 200, -200, 0] }}
+              whileTap={{ y: [0, 200, -200, 0] }}
               className="w-full px-6 py-4 bg-gray-100 text-gray-400 rounded-xl font-semibold"
             >
               Maybe later...
