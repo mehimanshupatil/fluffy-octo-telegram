@@ -26,7 +26,7 @@ export function AudioPermissionModal({ isOpen, onClose }: AudioPermissionModalPr
               Enhancing Your Experience
             </h2>
             <p className="text-gray-600 mb-6">
-              enable sound for 🎵
+              use earphones for better audio experence
             </p>
             <div className="grid grid-cols-1 gap-4">
               <motion.button

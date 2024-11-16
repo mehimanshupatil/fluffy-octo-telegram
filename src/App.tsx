@@ -15,6 +15,7 @@ function App() {
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [sounds, setSounds] = useState<{ [key: string]: Howl }>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState<Howl | null>(null);
 
   useEffect(() => {
     const soundEffects: { [key: string]: Howl } = {};
@@ -29,18 +30,33 @@ function App() {
     });
     setSounds(soundEffects);
 
-
+    return () => {
+      Object.keys(soundEffects).forEach((key) => {
+        soundEffects[key].unload();
+      });
+    };
   }, [])
 
   useEffect(() => {
     if (audioEnabled) {
       memories[currentPage].sound && playSound(memories[currentPage].sound)
     }
+    window.scroll({
+      top: 0,
+      behavior: 'smooth'
+    })
   }, [currentPage, audioEnabled, sounds])
 
   const playSound = (soundPath: string) => {
-    if (sounds[soundPath]) {
-      sounds[soundPath].play();
+
+    if (currentlyPlaying) {
+      currentlyPlaying.stop(); // Stop the currently playing sound
+    }
+
+    const newSound = sounds[soundPath]
+    if (newSound) {
+      newSound.play();
+      setCurrentlyPlaying(newSound);
     }
   };
 
@@ -202,7 +218,7 @@ function App() {
           </div>
           <button
             onClick={() => setCurrentPage(prev => prev + 1)}
-            disabled={currentPage === memories.length - 1 || !unlockedPages.has(currentPage + 1)}
+            // disabled={currentPage === memories.length - 1 || !unlockedPages.has(currentPage + 1)}
             className="text-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
