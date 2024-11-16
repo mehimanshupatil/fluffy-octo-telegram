@@ -7,15 +7,24 @@ import { AudioPermissionModal } from './components/AudioPermissionModal';
 import { memories } from './data/memories';
 import Lightbox from './components/lightbox/Lightbox';
 import confetti from 'canvas-confetti';
+import { useLocalStorage } from 'usehooks-ts';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(0);
+
+  const [currentPageLocal, setCurrentPageLocal,] = useLocalStorage('currentPage', 0)
+  const [currentPage, setCurrentPage,] = useState(currentPageLocal)
+
   const [unlockedPages, setUnlockedPages] = useState(new Set([0]));
   const [showAudioModal, setShowAudioModal] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [sounds, setSounds] = useState<{ [key: string]: Howl }>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentlyPlaying, setCurrentlyPlaying] = useState<Howl | null>(null);
+
+  useEffect(() => {
+    const newUnlockedPages = new Set(Array.from({ length: currentPageLocal + 1 }, (_, i) => i));
+    setUnlockedPages(newUnlockedPages);
+  }, [])
 
   useEffect(() => {
     const soundEffects: { [key: string]: Howl } = {};
@@ -131,7 +140,7 @@ function App() {
   const unlockNextPage = () => {
     if (currentPage < memories.length - 1) {
       setUnlockedPages(prev => new Set([...prev, currentPage + 1]));
-      // setCurrentPage(prev => prev + 1);
+      setCurrentPageLocal(currentPage + 1)
       triggerConfetti();
     }
   };
@@ -218,7 +227,7 @@ function App() {
           </div>
           <button
             onClick={() => setCurrentPage(prev => prev + 1)}
-            // disabled={currentPage === memories.length - 1 || !unlockedPages.has(currentPage + 1)}
+            disabled={currentPage === memories.length - 1 || !unlockedPages.has(currentPage + 1)}
             className="text-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
